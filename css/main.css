@@ -292,9 +292,11 @@ hr {
 }
 
 #skills {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.3rem;
+    /* Removed grid layout - now each section takes full width */
+}
+
+#work-experience {
+    /* New section for work experience */
 }
 
 .card .card-divider {
@@ -345,4 +347,279 @@ footer {
 footer .card {
     margin: 0 auto;
     max-width: 40rem;
+}
+
+/* Timeline styles for work experience */
+.timeline {
+    position: relative;
+    margin: 2rem 0;
+    padding: 2rem 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 100%;
+    background: var(--foreground);
+    border-radius: 2px;
+    z-index: 0;
+    box-sizing: border-box;
+}
+
+.timeline-item {
+    position: relative;
+    width: 50%;
+    padding: 1rem 2rem;
+    box-sizing: border-box;
+}
+
+.timeline-item.left {
+    left: 0;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.timeline-item.right {
+    left: 50%;
+    text-align: left;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.timeline-item .card {
+    width: 100%;
+    max-width: 600px;
+    z-index: 1;
+    background: var(--bg1);
+    border: var(--border-main);
+    border-radius: var(--radius);
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+.timeline-role {
+    font-size: 1rem;
+    color: var(--foreground);
+    opacity: 0.8;
+}
+
+.timeline-date {
+    font-size: 0.95rem;
+    color: var(--foreground);
+    opacity: 0.7;
+    white-space: nowrap;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 32px;
+    height: 32px;
+    background: var(--background);
+    border: 4px solid var(--foreground);
+    border-radius: 50%;
+    z-index: 2;
+    box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+    .timeline-item::before {
+        left: 20px;
+        transform: translateY(-50%);
+    }
+}
+
+/* Remove old .timeline-dot rules */
+.timeline-dot { display: none !important; }
+
+.timeline-item.left::before {
+    content: '';
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin-left: -16px; /* half the dot width */
+    width: 32px;
+    height: 32px;
+    background: var(--background);
+    border: 4px solid var(--foreground);
+    border-radius: 50%;
+    z-index: 2;
+    box-sizing: border-box;
+}
+
+.timeline-item.right::before {
+    content: '';
+    position: absolute;
+    left: 0%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin-left: 16px; /* half the dot width */
+    width: 32px;
+    height: 32px;
+    background: var(--background);
+    border: 4px solid var(--foreground);
+    border-radius: 50%;
+    z-index: 2;
+    box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+    .timeline-item.left::before,
+    .timeline-item.right::before {
+        left: 0;
+        margin-left: 0;
+        transform: translateY(-50%);
+    }
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
+.project-card {
+    position: relative;
+    background: var(--bg1);
+    border: var(--border-main);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: none;
+    transition: box-shadow var(--transition-main);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 220px;
+}
+
+.project-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.65);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: var(--radius);
+    transition: opacity 0.3s;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.project-card:hover .project-overlay {
+    opacity: 1;
+}
+
+.project-title {
+    width: 100%;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--foreground);
+    background: var(--bg1);
+    padding: 0.5rem 0 0.7rem 0;
+    border-bottom-left-radius: var(--radius);
+    border-bottom-right-radius: var(--radius);
+    z-index: 1;
+}
+
+@media (max-width: 900px) {
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+    .project-card {
+        height: 160px;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: var(--bg1);
+    border-bottom: var(--border-main);
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+.navbar {
+    max-width: 60rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+    padding: 1rem 0.5rem;
+}
+
+.navbar a {
+    color: var(--foreground);
+    font-family: Verela, sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.3rem 0.7rem;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.navbar a:hover, .navbar a:focus {
+    background: var(--foreground);
+    color: var(--background);
+}
+
+/* Add top padding to main content so it's not hidden under the header */
+.wrapper-main {
+    padding-top: 8rem;
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        gap: 1rem;
+        font-size: 1rem;
+        flex-wrap: wrap;
+    }
+    .wrapper-main {
+        padding-top: 7rem;
+    }
 }
